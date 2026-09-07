@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project Management MVP</title>
+    <style>
+      :root {
+        --accent-yellow: #ecad0a;
+        --primary-blue: #209dd7;
+        --secondary-purple: #753991;
+        --navy-dark: #032147;
+        --gray-text: #888888;
+        --surface: #f7f8fb;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: var(--surface);
+        color: var(--navy-dark);
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      main {
+        background: #ffffff;
+        border-top: 4px solid var(--accent-yellow);
+        border-radius: 16px;
+        box-shadow: 0 18px 40px rgba(3, 33, 71, 0.12);
+        padding: 40px;
+        max-width: 480px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+      p {
+        color: var(--gray-text);
+        line-height: 1.6;
+      }
+      code {
+        color: var(--primary-blue);
+      }
+      #health {
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Project Management MVP</h1>
+      <p>
+        Scaffolding placeholder. The Kanban frontend replaces this page in Part 3.
+      </p>
+      <p>
+        <code>GET /api/health</code>: <span id="health">checking</span>
+      </p>
+    </main>
+    <script>
+      fetch("/api/health")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("health").textContent = data.status;
+        })
+        .catch((error) => {
+          document.getElementById("health").textContent = "failed: " + error.message;
+        });
+    </script>
+  </body>
+</html>
