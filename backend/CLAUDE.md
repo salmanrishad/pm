@@ -20,22 +20,30 @@ warning on plain `httpx` and asks for `httpx2`.
 
 ## Running tests
 
-`uv` is not required on the host. Both commands below run in the official uv
-image with the backend directory mounted:
+`uv` is not required on the host. The commands below run in the official uv
+image with the backend directory mounted. Run them from `backend/`.
 
-```bash
-cd backend
-docker run --rm -v "$(pwd -W):/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv run --frozen pytest
+PowerShell:
+
+```powershell
+docker run --rm -v "${PWD}:/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv run --frozen pytest
 ```
 
-On Git Bash for Windows, prefix with `MSYS_NO_PATHCONV=1` and use `$(pwd -W)`.
-On Mac and Linux, use `$(pwd)`.
-
-Regenerate the lockfile the same way after editing `pyproject.toml`:
+Mac and Linux:
 
 ```bash
-docker run --rm -v "$(pwd -W):/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv lock
+docker run --rm -v "$(pwd):/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv run --frozen pytest
 ```
+
+Git Bash on Windows needs `MSYS_NO_PATHCONV=1` and `$(pwd -W)`, otherwise the
+`/w` path is mangled into a Windows path:
+
+```bash
+MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd -W):/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv run --frozen pytest
+```
+
+Regenerate the lockfile the same way after editing `pyproject.toml`, replacing
+`uv run --frozen pytest` with `uv lock`.
 
 `pyproject.toml` sets `pythonpath = ["."]` for pytest so `from app.main import app`
 resolves without installing the package.

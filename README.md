@@ -31,12 +31,14 @@ OPENROUTER_API_KEY=...
 
 ## Tests
 
-Backend (no host Python needed, runs in the uv image):
+Backend (no host Python or uv needed, runs in the uv image). From `backend/`:
 
-```bash
-cd backend
-docker run --rm -v "$(pwd -W):/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv run --frozen pytest
+```powershell
+docker run --rm -v "${PWD}:/w" -w /w ghcr.io/astral-sh/uv:python3.14-bookworm-slim uv run --frozen pytest
 ```
+
+On Mac and Linux use `$(pwd)` in place of `${PWD}`. See `backend/CLAUDE.md` for
+the Git Bash form, which needs an extra flag.
 
 Frontend:
 
